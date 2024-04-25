@@ -15,6 +15,7 @@
 
 <body>
       <?php
+            date_default_timezone_set('Europe/Paris');
             session_start();
             include_once("navbar.php");
       ?>

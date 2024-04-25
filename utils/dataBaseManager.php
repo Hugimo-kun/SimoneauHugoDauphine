@@ -13,7 +13,7 @@
             return $pdo;
 
         } catch (Exeption $e) {
-            echo("Tu fais n'importe quoi : ". $e->getMessage());
+            echo("Tu fais n'importe quoi ! ");
             exit();
         }
     }
@@ -25,7 +25,17 @@
 
     function findAllAnnonces(PDO $pdo)
     {
-        $reponse = $pdo->query('SELECT * FROM annonce LIMIT 10 OFFSET 0');
+        $reponse = $pdo->query('SELECT * FROM annonce ORDER BY datePublication DESC LIMIT 10 OFFSET 0');
+        // Trier par ordre décroissant comme ça on a la derniere annonce publier en premier
         return $reponse->fetchAll();
     }
+
+    function findAnnonceById(PDO $pdo, int $id)
+{
+    $query = $pdo->prepare('SELECT * FROM annonce WHERE id = :id');
+    $query->execute([
+        ":id" => $id
+    ]);
+    return $query->fetch();
+}
 ?>
