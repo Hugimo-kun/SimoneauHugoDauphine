@@ -23,7 +23,7 @@
         <div class="d-flex flex-column justify-content-center w-50">
             <img src="<?=$annonce["imageUrl"]?>" class="m-4" alt="<?=$annonce["titre"]?>">
         </div>
-        <div class="d-flex flex-column">
+        <div class="d-flex flex-column border border-2 border-dark rounded me-2">
             <p class="m-3"><?=$annonce["contenu"]?></p>
             <div class="d-flex justify-content-between">
                 <p class="mx-3 fw-bold fst-italic"><?=$annonce["auteur"]?></p>
