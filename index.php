@@ -19,6 +19,7 @@ $annonces = findAllAnnonces($pdo);
 <div class="container">
 
     <h1 class="text-center"><?php echo ($title ?? "Default Title") ?></h1>
+    <h2 class="text-center">Les derniers articles</h2>
     <div class="d-flex justify-content-evenly align-items-center flex-wrap gap-2">
         <?php
         foreach($annonces as $annonce) {
