@@ -31,11 +31,42 @@
     }
 
     function findAnnonceById(PDO $pdo, int $id)
-{
+    {
     $query = $pdo->prepare('SELECT * FROM annonce WHERE id = :id');
     $query->execute([
         ":id" => $id
     ]);
     return $query->fetch();
-}
+    }
+
+    function addAnnonce(PDO $pdo)
+    {
+        $req = $pdo->prepare(
+            'INSERT INTO annonce(titre, contenu, imageUrl, auteur) VALUES(:titre, :contenu, :imageUrl, :auteur)'
+        );
+        $req->execute([
+            ':titre' => $_POST['titre'],
+            ':contenu' => $_POST['contenu'],
+            ':imageUrl' => $_POST['imageUrl'],
+            ':auteur' => $_POST['auteur']
+        ]);
+    }
+
+    function editAnnonce(PDO $pdo, int $id)
+    {
+        $req = $pdo->prepare(
+            'UPDATE annonce SET titre = :titre, contenu = :contenu, imageUrl = :imageUrl, auteur = :auteur');
+        $req->execute([
+            ':titre' => $_POST['titre'],
+            ':contenu' => $_POST['contenu'],
+            ':imageUrl' => $_POST['imageUrl'],
+            ':auteur' => $_POST['auteur']
+        ]);
+    }
+
+    function deleteAnnonce(PDO $pdo, int $id)
+    {
+        $req = $pdo->prepare('DELETE * FROM annonce WHERE id = :id');
+        $req->execute(['id'=> ':id']);
+    }
 ?>
