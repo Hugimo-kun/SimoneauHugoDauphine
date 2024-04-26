@@ -2,9 +2,9 @@
     $title = "Admin - Suppression";
     include_once("../block/header.php");
     require_once("../utils/dataBaseManager.php");
-    // if(!isset($_GET["id"])) {
-    //     header("Location: http://localhost/SimoneauHugoDauphine/admin/index.php");
-    // }
+    if(!isset($_GET["id"])) {
+        header("Location: http://localhost/SimoneauHugoDauphine/admin/index.php");
+    }
     if (!isset($_SESSION["username"])) {
         header("Location: http://localhost/SimoneauHugoDauphine/login.php");
     }
@@ -17,28 +17,23 @@
     $annonce = findAnnonceById($pdo, $id);
 
     $formatDateHeure = date("d/m/Y", strtotime($annonce["datePublication"]));
+
+    if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["delete"])) {
+        $res = deleteAnnonce($pdo, $id);
+        header('Location: http://localhost/SimoneauHugoDauphine/admin/index.php');
+    }
 ?>
 
 <div>
     <div>
         <p class="text-center fw-bold fs-3 mt-2">Êtes-vous certains de vouloir supprimer cette annonce ?</p>
         <div class="d-flex justify-content-center">
-            <form method="POST" action="deleteAnnonce.php">
+            <form method="POST" action="deleteAnnonce.php?id=<?=$id?>">
                 <a class="btn btn-danger m-2" href="http://localhost/SimoneauHugoDauphine/admin/index.php">Annuler</a>
-                <input type="hidden" value="<?php echo($annonce["id"])?>">
+                <input type="hidden" value="1" name="delete">
                 <input type="submit" value="Confirmer" class="btn btn-success">
             </form>
         </div>
-        <?php 
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $id = $_POST["id"];
-            $annonce = deleteAnnonce($pdo, $id);
-        ?>
-            <h2>L'annonce a bien été supprimer</h2>
-            <a class="btn btn-success m-2" href="http://localhost/SimoneauHugoDauphine/admin/index.php">Retourner à l'accueil</a>
-        <?php
-        }
-        ?>
     </div>
     <div class="d-flex align-items-center flex-column">
         <div class="d-flex flex-column w-50">

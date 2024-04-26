@@ -55,7 +55,7 @@
     function editAnnonce(PDO $pdo, int $id)
     {
         $req = $pdo->prepare(
-            'UPDATE annonce SET titre = :titre, contenu = :contenu, imageUrl = :imageUrl, auteur = :auteur');
+            'UPDATE annonce SET titre = :titre, contenu = :contenu, imageUrl = :imageUrl, auteur = :auteur WHERE id = :id');
         $req->execute([
             ':titre' => $_POST['titre'],
             ':contenu' => $_POST['contenu'],
@@ -66,7 +66,8 @@
 
     function deleteAnnonce(PDO $pdo, int $id)
     {
-        $req = $pdo->prepare('DELETE * FROM annonce WHERE id = :id');
-        $req->execute(['id'=> ':id']);
+        $req = $pdo->prepare('DELETE FROM annonce WHERE id = :id');
+        $req->execute([':id'=> (int) $id]);
+        return $req->fetch();
     }
 ?>

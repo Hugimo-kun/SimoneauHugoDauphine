@@ -10,22 +10,21 @@ require_once("../utils/dataBaseManager.php");
 $pdo = connectDB();
 
 if($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["titre"], $_POST["contenu"], $_POST["auteur"])) {
-    echo("<p>Votre annonce a bien été envoyé :)<p>");
-    echo("<a class='btn btn-info m-2' href='http://localhost/SimoneauHugoDauphine/admin/index.php'>Retourner au menu</a>");
     if (isset($_FILES['imageUrl']) AND $_FILES['imageUrl']['error'] == 0) {
         if ($_FILES['imageUrl']['size'] <= 1000000)
         {
             $extension = explode('/', $_FILES['imageUrl']['type'])[1];
-            $extensions_autorisees = array('jpg', 'jpeg', 'png');
+            $extensions_autorisees = array('jpg', 'jpeg', 'png', 'webp');
             if (in_array($extension, $extensions_autorisees))
             {
                 move_uploaded_file($_FILES['imageUrl']['tmp_name'], '../img/' . basename($_FILES['imageUrl']['name']));
-                echo("L'envoi a bien été effectué !");
+                echo("<p>Votre annonce a bien été envoyé :)<p>");
+                echo("<a class='btn btn-info m-2' href='http://localhost/SimoneauHugoDauphine/admin/index.php'>Retourner au menu</a>");
             } else {
-                echo('J\'accepte que les images ...');
+                echo('<p class="text-center">J\'accepte que les images ...</p>');
             }
         } else {
-            echo('le fichier est trop lourd pour un petit serveur ... ');
+            echo('<p class="text-center">le fichier est trop lourd pour un petit serveur ... </p>');
         }
     }
 

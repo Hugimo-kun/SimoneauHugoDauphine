@@ -4,12 +4,6 @@ $title = "Dauphine";
 
 include_once("block/header.php");
 
-/*
-$passHash = password_hash("bove123", PASSWORD_DEFAULT);
-echo($passHash. "<br>");
-var_dump(password_verify("bove123", $passHash ));
-*/
-
 $pdo = connectDB();
 configPdo($pdo);
 
